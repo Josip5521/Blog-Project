@@ -42,7 +42,7 @@ gravatar = Gravatar(app,
                     use_ssl=False,
                     base_url=None)
 
-# TODO: Configure Flask-Login
+
 
 
 # CREATE DATABASE
@@ -55,7 +55,7 @@ db.init_app(app)
 
 # CONFIGURE TABLES
 
-# TODO: Create a User table for all your registered users.
+
 
 class User(UserMixin, db.Model):
     __tablename__ = "users"
@@ -129,7 +129,7 @@ login_manager.init_app(app)
 def load_user(user_id):
     return db.session.get(User, user_id)
 
-# TODO: Use Werkzeug to hash the user's password when creating a new user.
+
 @app.route('/register', methods=["GET", "POST"])
 def register():
     form = CreateRegisterForm()
@@ -159,7 +159,7 @@ def register():
     return render_template("register.html", form=form, current_user=current_user)
 
 
-# TODO: Retrieve a user from the database based on their email. 
+
 @app.route('/login', methods=["GET", "POST"])
 def login():
     form = CreateLoginForm()
@@ -192,7 +192,7 @@ def get_all_posts():
     return render_template("index.html", all_posts=posts, current_user=current_user)
 
 
-# TODO: Allow logged-in users to comment on posts
+
 @app.route("/post/<int:post_id>", methods=["GET", "POST"])
 def show_post(post_id):
     requested_post = db.get_or_404(BlogPost, post_id)
@@ -214,7 +214,7 @@ def show_post(post_id):
     return render_template("post.html", post=requested_post, current_user=current_user, form=comment_form)
 
 
-# TODO: Use a decorator so only an admin user can create a new post
+
 @app.route("/new-post", methods=["GET", "POST"])
 @admin_only
 def add_new_post():
@@ -234,7 +234,6 @@ def add_new_post():
     return render_template("make-post.html", form=form, current_user=current_user)
 
 
-# TODO: Use a decorator so only an admin user can edit a post
 @app.route("/edit-post/<int:post_id>", methods=["GET", "POST"])
 def edit_post(post_id):
     post = db.get_or_404(BlogPost, post_id)
@@ -256,7 +255,7 @@ def edit_post(post_id):
     return render_template("make-post.html", form=edit_form, is_edit=True, current_user=current_user)
 
 
-# TODO: Use a decorator so only an admin user can delete a post
+
 @app.route("/delete/<int:post_id>")
 @admin_only
 def delete_post(post_id):
